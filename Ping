@@ -1,0 +1,55 @@
+'''
+Created on Nov 23, 2016
+Edit on Dec 6, 2016
+    update the result feedback
+    -replace 0 and 1
+    new add result_error.txt to collect the error host
+Edit on Dec 22, 2016
+    change to Python3.5
+    - Python 3.5 not support file()? changed it to open
+    
+
+@author: xiyou2012
+'''
+
+import os
+import time
+
+
+
+
+
+
+path = r'C:\Users\xxx\01 Loacal Storage\Python_tools\Ping'
+
+
+f = open(path+'\\list.txt','r')
+f_result = open(path+'\\result.txt','r+')
+ti = time.strftime('%Y-%m-%d %H:%M:%S')
+# f_result.readlines()
+f_result.write('######'+ti+'######\n')
+f_result.close()
+
+
+f_error = open(path+'\\result_error.txt','r+')
+f_error.readlines()
+f_error.write('######'+ti+'######\n')
+
+
+
+# os.system('ping xxx.161.0.61 >> "' + path + '\\result.txt"')
+
+
+for line in f.readlines():
+    line = line.strip('\n')
+    temp = os.system('ping '+ line +'>> "' + path + '\\result.txt"' )
+#Result feedback and notice    
+#     print temp
+    if str(temp) == '0' :
+        print ('ping %s succesful'%(line))
+    if str(temp) == '1' :
+        print ('ping %s not exsit, please check it'%(line))
+        f_error.write(str(line) + "\n")     
+f_error.close()    
+
+f.close()
