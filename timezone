@@ -1,0 +1,137 @@
+#! coding=utf-8
+
+'''
+Created by xiyou2012
+2016.12.29
+-增加print到指定文件夹功能
+-增加创建时间戳为文件名
+
+
+'''
+
+
+
+import time
+import os
+import datetime
+
+def ISOString2Time( s ):
+    ''' 
+    convert a ISO format time to second
+    from:2006.04.12 16:46:40 to:23123123
+    把一个时间转化为秒
+    '''
+    d=datetime.datetime.strptime(s,"%Y.%m.%d %H:%M:%S")
+
+    return time.mktime(d.timetuple())
+
+def Time2ISOString( s ):
+    ''' 
+    convert second to a ISO format time
+    from: 23123123 to: 2006.04.12 16:46:40
+    把给定的秒转化为定义的格式
+    '''
+    return time.strftime("%Y.%m.%d %H:%M:%S", time.localtime( float(s) ) ) 
+
+def printconfirm(time_zone,timezone,start_time,end_time):
+    
+    print( 
+          #confirm
+'''
+your input as below:
+TimeZone is %s %s  %s-%s
+'''%(time_zone,timezone,start_time,end_time)
+)
+    
+def UTC(time):  
+     
+    stime = ISOString2Time(time) 
+    U_time = stime -timezone*3600
+    return Time2ISOString(U_time)
+
+def HKT(time):  
+     
+    stime = ISOString2Time(time) 
+    HK_time = stime - timezone*3600 + 8*3600
+    return Time2ISOString(HK_time)
+
+def JST(time):  
+     
+    stime = ISOString2Time(time) 
+    JP_time = stime - timezone*3600 + 9*3600
+    return Time2ISOString(JP_time)
+
+
+if __name__ == '__main__':
+    
+    path = r'C:\Users\xxx\01 Loacal Storage\Python_tools\maintain_timezone' 
+    
+    ti = time.strftime('%Y-%m-%d_%H%M')
+    f = open(path+'\\'+ti+'.txt','w')
+    
+    start_time = input('Please input the target time from %Y.%m.%d %H:%M:%S')
+    end_time = input('Please input the target time to %Y.%m.%d %H:%M:%S')
+    time_zone = input(
+'''
+Please input the number for time zone
+    1 -- Australia/Victoria
+    2 -- JST(Japan Standard Time) 
+    3 -- HKT
+    
+'''
+)    
+    if time_zone =='1':
+        time_zone = 'Australia/Victoria'
+        timezone = 11 #keyword 
+        print(timezone)
+    if time_zone =='2':
+        time_zone = 'JST'
+        timezone = 9 #keyword 
+        print(timezone) 
+    if time_zone =='3':
+        time_zone = 'HKT'
+        timezone = 8 #keyword 
+        print(timezone)
+    
+
+    printconfirm(time_zone,timezone,start_time,end_time)
+    
+#    #def
+#     ss = ISOString2Time( start_time )
+#     se = ISOString2Time( end_time )
+#     cha = se -ss
+#     print('total hours are',cha/3600)
+#     tf_start_time= Time2ISOString( ss )
+#     tf_end_time=Time2ISOString( se )
+#     print (tf_start_time,'-',tf_end_time)
+    
+    print(
+'''
+!------
+
+Hi Team,
+ 
+Please note that there will be an maintenance taken by our carrier. Details as below.
+ 
+Date & Time : 
+%s UTC -%s UTC
+%s HKT -%s HKT
+%s JST -%s JST
+      
+Activity:     
+Partner provider’s maintenance.
+
+Affected Circuit:               
+xxx               
+                
+Please ignore alarm during the period and take XXX for more details.     
+
+!------
+
+
+'''%(UTC(start_time),UTC(end_time),HKT(start_time),HKT(end_time),JST(start_time),JST(end_time)),file=f
+)
+    
+    f.close()
+    
+    
