@@ -1,0 +1,54 @@
+'''
+Created on Oct 19, 2016
+
+update from Python 2.7 to 3.5
+-2016.12.22
+
+@author: xiyou2012
+'''
+    
+def up6(price):
+    x = float(price)*1.06
+    print ('6% base price will be',x)
+    
+def up7(price):
+    x = float(price)*1.07
+    print ('7% base price will be',x) 
+
+def up10(price):
+    x = float(price)*1.1
+    print ('10% base price will be',x)
+
+def up20(price):
+    x = float(price)*1.2
+    print ('20% base price will be',x)
+    
+def up30(price):
+    x = float(price)*1.3
+    print ('30% base price will be',x) 
+    
+def current_location(current_price,base_price):
+    print ('current location is',(float(current_price)/float(base_price)-1)*100,'%')           
+
+    
+         
+
+
+
+if __name__ == '__main__':
+    
+    current_price = input('please enter current price')
+    base_price = input('please enter base price')
+    up6(base_price)
+    up7(base_price)
+    up10(base_price)
+    up20(base_price)
+    up30(base_price)
+    current_location(current_price,base_price)
+    
+    
+    
+    
+    
+    
+    
