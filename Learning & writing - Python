@@ -1,1 +1,15 @@
+#! coding=utf-8
 
+'''
+Created on 2017��1��14��
+
+example for re
+
+@author: xiyou
+'''
+
+import re
+
+phoneNumRegex = re.compile(r'\d\d\d-\d\d\d-\d\d\d\d')
+mo = phoneNumRegex.search('My number is 415-666-8888.')
+print('Phone number is ' + mo.group())
