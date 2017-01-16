@@ -23,3 +23,16 @@ import re
 phoneNumRegex = re.compile(r'(\d\d\d)-(\d\d\d-\d\d\d\d)')
 mo = phoneNumRegex.search('My number is 415-666-8888.dsaf asd-ddf-dddd,8888-8888-8888,444-444-444444.')
 print(mo.group(1))
+
+
+----------
+#auto
+
+import pyautogui as pa
+for i in range (4):   
+    pa.moveTo(100,1000,duration=0.25)    
+                     
+
+
+
+
