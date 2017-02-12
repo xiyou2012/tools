@@ -1,5 +1,7 @@
 urllib
 
 from urllib.request import urlopen
+
 html = urlopen("http://www.baidu.com")
-print(html.read())
+bsObj = html.read()
+print(bsObj.h1)
