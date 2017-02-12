@@ -104,28 +104,22 @@ Please input the number for time zone
 #     tf_start_time= Time2ISOString( ss )
 #     tf_end_time=Time2ISOString( se )
 #     print (tf_start_time,'-',tf_end_time)
-    
+
+
+#输出内容，如下
     print(
 '''
 !------
 
 Hi Team,
  
-Please note that there will be an maintenance taken by our carrier. Details as below.
+
  
 Date & Time : 
 %s UTC -%s UTC
 %s HKT -%s HKT
 %s JST -%s JST
-      
-Activity:     
-Partner provider’s maintenance.
-
-Affected Circuit:               
-xxx               
-                
-Please ignore alarm during the period and take XXX for more details.     
-
+ 
 !------
 
 
