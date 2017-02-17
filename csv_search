@@ -1,0 +1,54 @@
+'''
+Created on Feb 16, 2017
+
+@author: xiyou
+'''
+
+import csv
+
+
+
+
+
+if __name__ == '__main__':
+#Path:    
+    path = r'C:\xxx'
+#File for recording
+    outputFile = open(path+r'\output.csv','w',newline='')
+    outputWriter = csv.writer(outputFile)
+##Handle for xxx.csv 
+    openf = open(path + r'\xxx.csv' )
+    reader =csv.reader(openf)
+    Data = list(reader)
+
+    list1 = []
+    
+    for i in range(len(Data)):
+
+        if Data[i][2] =='xxx':
+            List2 = []
+            list2 = [Data[i][6],'','','',Data[i][5],'',Data[i][2],Data[i][0]]
+            print(list2)
+            outputWriter.writerow(list2)
+            
+##Handle for xxx.csv
+    openf = open(path + r'\xxx.csv' )
+    reader =csv.reader(openf)
+    Data = list(reader)
+
+    list1 = []
+    
+    for i in range(len(Data)):
+
+        if Data[i][2] =='xxx':
+            List2 = []
+            list2 = [Data[i][6],'','','',Data[i][5],'',Data[i][2],Data[i][0]]
+            print(list2)
+            outputWriter.writerow(list2)            
+            
+            
+            
+            
+            
+##            
+    outputFile.close()
