@@ -1,0 +1,32 @@
+Sub dealmail()
+
+    'Clear email older then 7 days, with specifical subject.
+    
+
+    Set myOlApp = CreateObject("Outlook.Application")
+    Set myNamespace = myOlApp.GetNamespace("MAPI")
+    Set myFolder = myNamespace.GetDefaultFolder(olFolderInbox)
+  
+  'error  how to set as below 
+    Set myDonefolder = myNamespace.GetDefaultFolder(olFolderInbox).Folders("3. BAU Work").Folders("Leaver_Done")
+
+
+    Set meFolder = myNamespace.GetDefaultFolder(olFolderInbox).Folders("3. BAU Work")
+    Set myTargetFolder = meFolder.Folders("02. HR Support").Folders("Leaver")
+    
+
+    For i = myTargetFolder.Items.Count To 1 Step by - 1
+
+        Set mymailitem = myTargetFolder.Items(i)
+        If InStr(1, mymailitem.Subject, "Leaver") > 0 Then
+            Debug.Print "Find target :" & mymailitem.Subject
+            Else
+                Debug.Print "Not find anything"
+                
+        End If
+
+        DoEvents
+    Next
+    
+    MsgBox "OK"
+End Sub
