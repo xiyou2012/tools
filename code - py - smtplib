@@ -1,0 +1,78 @@
+# encoding: utf-8  
+2.  
+3.import smtplib  
+4.from email.MIMEMultipart import MIMEMultipart  
+5.from email.MIMEBase import MIMEBase  
+6.from email.MIMEText import MIMEText  
+7.import os,datetime  
+8.  
+9.  
+10.def send_email(**kwargs):  
+11.    """ 
+12.    method 
+13.    event 
+14.    dtstart 
+15.    due 
+16.    msg 
+17.    dtstamp 
+18.    """  
+19.    ical = """ 
+20.    BEGIN:VCALENDAR\r\n 
+21.    PRODID:pyICSParser\r\n 
+22.    METHOD:%(method)s\r\n 
+23.    VERSION:2.0\r\n 
+24.    BEGIN:%(event)s\r\n 
+25.    DTSTART:%(dtstart)s\r\n 
+26.    DUE:%(due)s\r\n 
+27.    PRIORITY:1\r\n 
+28.    SUMMARY:%(msg)s\r\n 
+29.    UID:calsrv.example.com-873970198738777-00@example.com\r\n 
+30.    SEQUENCE:0\r\n 
+31.    DTSTAMP:%(dtstamp)s\r\n 
+32.    STATUS:%(status)s\r\n 
+33.    END:VEVENT\r\n 
+34.    END:VCALENDAR\r\n 
+35.    """% kwargs  
+36.  
+37.    eml_body = u"%(msg)s" % kwargs  
+38.    msg = MIMEMultipart('mixed')  
+39.    msg['Date'] = formatdate(localtime=True)  
+40.    msg['Subject'] = u"%(msg)s" % kwargs  
+41.    msg['To'] = ",".join(attendees)  
+42.  
+43.    part_email = MIMEText(eml_body,"html",'utf-8')  
+44.    part_cal = MIMEText(ical,'calendar;method=%(method)s'%kwargs,'utf-8')  
+45.  
+46.    msgAlternative = MIMEMultipart('alternative')  
+47.    msg.attach(msgAlternative)  
+48.  
+49.    ical_atch = MIMEBase('application/ics',' ;name="%s"'%("invite.ics"))  
+50.    ical_atch.set_payload(ical)  
+51.    Encoders.encode_base64(ical_atch)  
+52.    ical_atch.add_header('Content-Disposition', 'attachment; filename="%s"'%("invite.ics"))  
+53.  
+54.    eml_atch = MIMEBase('text/plain','')  
+55.    Encoders.encode_base64(eml_atch)  
+56.    eml_atch.add_header('Content-Transfer-Encoding', "")  
+57.  
+58.    msgAlternative.attach(part_email)  
+59.    msgAlternative.attach(part_cal)  
+60.  
+61.    s = smtplib.SMTP()  
+62.    s.connect('xxxx')  
+63.    s.login(' ', ' ')  
+64.    s.sendmail('auto@sys.com', attendees, msg.as_string())  
+65.    s.close()  
+66.  
+67.attendees =['x@sys.com']  
+68.fro = ""  
+69.  
+70.ddtstart = datetime.datetime.utcnow()  
+71.dur = datetime.timedelta(minutes= 5)  
+72.dtend = ddtstart + dur  
+73.dtend = dtend.strftime("%Y%m%dT%H%M%SZ")  
+74.  
+75.send_email(method='PUBLISH',event='VTODO',dtstart=dtend,due=dtend,msg='publish 任务',dtstamp=dtend, status="COMPLETED")  
+76.send_email(method='REQUEST',event='VTODO',dtstart=dtend,due=dtend,msg='request 任务',dtstamp=dtend, status="NEEDS ACTION")  
+77.send_email(method='PUBLISH',event='VEVENT',dtstart=dtend,due=dtend,msg='publish 日历',dtstamp=dtend, status="CONFIRMED")  
+78.send_email(method='REQUEST',event='VEVENT',dtstart=dtend,due=dtend,msg='request 日历',dtstamp=dtend, status='CONFIRMED')  
