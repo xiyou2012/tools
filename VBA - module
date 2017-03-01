@@ -1,0 +1,136 @@
+
+Sub dealmail()
+
+    'Clear email older then 7 days, with specifical subject.
+    
+
+    Set myOlApp = CreateObject("Outlook.Application")
+    Set myNameSpace = myOlApp.GetNamespace("MAPI")
+    Set myFolder = myNameSpace.GetDefaultFolder(olFolderInbox)
+    
+    Set myDeletedFolder = myNameSpace.GetDefaultFolder(olFolderDeletedItems)
+
+    Set meFolder = myNameSpace.GetDefaultFolder(olFolderInbox).Folders("1. To Me")
+    Set myTargetFolder = meFolder.Folders("Nice Recorders Alert")
+
+    For i = myTargetFolder.Items.Count To 1 Step by - 1
+
+        Set mymailitem = myTargetFolder.Items(i)
+        If InStr(1, mymailitem.Subject, "Forwarded Trap Message from") > 0 Then
+            m = DateAdd("d", -7, Now)
+            Debug.Print m
+            If mymailitem.SentOn > m Then
+                Debug.Print "Big"
+            Else
+                Debug.Print "Small"
+                mymailitem.Move myDeletedFolder
+                'mymailitem.Delete
+            End If
+        End If
+
+        DoEvents
+    Next
+    
+    MsgBox "OK"
+End Sub
+
+Sub dealmail1()
+    
+    'Clear email older then 7 days
+    
+    Set myOlApp = CreateObject("Outlook.Application")
+    Set myNameSpace = myOlApp.GetNamespace("MAPI")
+    Set myFolder = myNameSpace.GetDefaultFolder(olFolderInbox)
+    
+    Set myDeletedFolder = myNameSpace.GetDefaultFolder(olFolderDeletedItems)
+
+    Set meFolder = myNameSpace.GetDefaultFolder(olFolderInbox).Folders("1. To Me")
+    Set myTargetFolder = meFolder.Folders("Nice Recorders Alert")
+
+    For i = myTargetFolder.Items.Count To 1 Step by - 1
+
+        Set mymailitem = myTargetFolder.Items(i)
+        m = DateAdd("d", -7, Now)
+        Debug.Print m
+        If mymailitem.SentOn > m Then
+            Debug.Print "Big"
+        Else
+            Debug.Print "Small"
+            mymailitem.Move myDeletedFolder
+            'mymailitem.Delete
+        End If
+
+        DoEvents
+    Next
+    
+    MsgBox "OK"
+End Sub
+
+Sub ClearEmail_01()
+    
+    'Clear email older then 60 days
+    '1. To Me --- tier0 - Verizon
+    
+    Set myOlApp = CreateObject("Outlook.Application")
+    Set myNameSpace = myOlApp.GetNamespace("MAPI")
+    Set myFolder = myNameSpace.GetDefaultFolder(olFolderInbox)
+    
+    Set myDeletedFolder = myNameSpace.GetDefaultFolder(olFolderDeletedItems)
+
+    Set meFolder = myNameSpace.GetDefaultFolder(olFolderInbox).Folders("1. To Me")
+    Set myTargetFolder = meFolder.Folders("tier0 - Verizon")
+
+    For i = myTargetFolder.Items.Count To 1 Step by - 1
+
+        Set mymailitem = myTargetFolder.Items(i)
+        m = DateAdd("d", -60, Now)
+        Debug.Print m
+        If mymailitem.SentOn > m Then
+            Debug.Print "Big"
+        Else
+            Debug.Print "Small - deleted" '& mymailitem.Subject
+            'mymailitem.Move myDeletedFolder
+            mymailitem.Delete
+        End If
+
+        DoEvents
+    Next
+    
+    MsgBox "OK"
+End Sub
+
+
+Sub Onceforvoice()
+
+    'Clear email older then 7 days, with specifical subject.
+    
+
+    Set myOlApp = CreateObject("Outlook.Application")
+    Set myNameSpace = myOlApp.GetNamespace("MAPI")
+    Set myFolder = myNameSpace.GetDefaultFolder(olFolderInbox)
+    
+    Set myDeletedFolder = myNameSpace.GetDefaultFolder(olFolderDeletedItems)
+
+    Set meFolder = myNameSpace.GetDefaultFolder(olFolderInbox).Folders("7. Syslog")
+    Set myTargetFolder = meFolder.Folders("01. Zenoss")
+
+    For i = myTargetFolder.Items.Count To 1 Step by - 1
+
+        Set mymailitem = myTargetFolder.Items(i)
+        If InStr(1, mymailitem.Subject, "Out of service trunk warning") > 0 Then
+            m = DateAdd("d", -7, Now)
+            Debug.Print m
+            If mymailitem.SentOn > m Then
+                Debug.Print "Big"
+            Else
+                Debug.Print "Small - deleted :" & mymailitem.Subject
+                mymailitem.Move myDeletedFolder
+                'mymailitem.Delete
+            End If
+        End If
+
+        DoEvents
+    Next
+    
+    MsgBox "OK"
+End Sub
