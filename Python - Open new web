@@ -1,0 +1,19 @@
+#! coding = UTF-8
+'''
+Created on Jan 13, 2017
+
+@author: 
+'''
+
+
+import webbrowser as wb
+import time
+
+URL1='http://xxx'
+
+URL2='http://xxx'
+
+
+wb.open(URL1)
+time.sleep(1)
+wb.open(URL2)
