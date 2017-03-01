@@ -103,6 +103,8 @@ End Sub
 Sub Onceforvoice()
 
     'Clear email older then 7 days, with specifical subject.
+    '7. Syslog --- 01. Zenoss
+    'Out of service trunk warning
     
 
     Set myOlApp = CreateObject("Outlook.Application")
