@@ -17,3 +17,22 @@ URL2='http://xxx'
 wb.open(URL1)
 time.sleep(1)
 wb.open(URL2)
+
+
+=========
+
+version 2 by using list.txt
+
+
+
+import webbrowser as wb
+import time
+
+path = r'E:\firstgold'
+
+f = open(path+'\\list.txt','r')
+for line in f.readlines():
+	line = line.strip('\n')
+	URL=line
+	wb.open(URL)
+	time.sleep(1)
