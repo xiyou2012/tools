@@ -136,3 +136,76 @@ Sub Onceforvoice()
     
     MsgBox "OK"
 End Sub
+
+
+-------
+
+Sub Ckecking_AP_Tier0_Tier1_SLA()
+    
+    'RootFolder "8. VBA System alert --- check everyday"
+    'Remove with key work to "100. Network -- AP_Tier1_Telstra -- SLA"
+    'key work: "AP_Tier1_SingTel" "Verizon IP SLA Operation" & "BGP Neighbor"
+    'latest 2017.3.6
+    'without from and to
+    
+
+    Set myOlApp = CreateObject("Outlook.Application")
+    Set myNamespace = myOlApp.GetNamespace("MAPI")
+    Set myFolder = myNamespace.GetDefaultFolder(olFolderInbox)
+    'Remove to
+    Set myRemoveFolder101 = myFolder.Folders("8. VBA System alert --- check everyday").Folders("101. Network -- AP_Tier1_SingTel --SLA")
+    Set myRemoveFolder100 = myFolder.Folders("8. VBA System alert --- check everyday").Folders("100. Network -- AP_Tier1_Telstra -- SLA")
+    Set myRemoveFolder103 = myFolder.Folders("8. VBA System alert --- check everyday").Folders("103. Network -- Tier0_Verizon -- SLA")
+    Set myRemoveFolder104 = myFolder.Folders("8. VBA System alert --- check everyday").Folders("104. Network -- Tier0_BT -- SLA")
+    Set myRemoveFolder107 = myFolder.Folders("8. VBA System alert --- check everyday").Folders("107. Network -- Tier0 -- BGP Neighbor")
+        
+    Set myTargetFolder = myFolder.Folders("8. VBA System alert --- check everyday")
+    
+
+
+    For i = myTargetFolder.Items.Count To 1 Step by - 1
+
+        Set mymailitem = myTargetFolder.Items(i)
+
+        If InStr(1, mymailitem.Subject, "AP_Tier1_SingTel") > 0 Or _
+           InStr(1, mymailitem.Subject, "AP_Tier1_Singtel") > 0 Then
+
+            Debug.Print "Removing:" & mymailitem.Subject
+            mymailitem.Move myRemoveFolder101
+            
+        ElseIf InStr(1, mymailitem.Subject, "AP_Tier1_Telstra") > 0 Then
+
+            Debug.Print "Removing:" & mymailitem.Subject
+            mymailitem.Move myRemoveFolder100
+            
+            
+        ElseIf InStr(1, mymailitem.Subject, "VOICE_QUALITY_VzB") > 0 Or _
+               InStr(1, mymailitem.Subject, "Verizon IP SLA Operation") > 0 Or _
+               InStr(1, mymailitem.Subject, "VZ Ticket") > 0 Then
+
+            Debug.Print "Removing:" & mymailitem.Subject
+            mymailitem.Move myRemoveFolder103
+            
+            
+        ElseIf InStr(1, mymailitem.Subject, "VOICE_QUALITY_BT") > 0 Then
+
+            Debug.Print "Removing:" & mymailitem.Subject
+            mymailitem.Move myRemoveFolder104
+            
+            
+        ElseIf InStr(1, mymailitem.Subject, "BGP Neighbor") > 0 Then
+
+            Debug.Print "Removing:" & mymailitem.Subject
+            mymailitem.Move myRemoveFolder107
+            
+        Else
+        
+            Debug.Print "Checking now ..."
+            
+            
+        End If
+        DoEvents
+    Next
+    
+    'MsgBox "OK"
+End Sub
