@@ -1,0 +1,9 @@
+tunnel
+
+interface Tunnel0
+ description Tunnel to xxx
+ ip address 192.168.18.1 255.255.255.252
+ ip mtu 1400
+ keepalive 5 4
+ tunnel source Loopback1
+ tunnel destination 10.x.x.x
