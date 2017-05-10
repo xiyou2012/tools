@@ -1,0 +1,15 @@
+
+!---enable a vrf named Mgmt-intf 
+vrf definition Mgmt-intf
+
+!---interface config---
+interface GigabitEthernet0 
+description OOB mgmt 
+vrf forwarding Mgmt-intf 
+ip address 10.x.x.x 255.255.255.0 
+negotiation auto
+
+!---vrf routing
+ip route vrf Mgmt-intf 10.0.0.0 255.0.0.0 10.x.x.1
+
+
