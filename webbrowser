@@ -1,0 +1,23 @@
+"""
+Created on Tue Apr  6 10:23:05 2021
+
+@author: Walter.Zhu
+auto bootup
+"""
+
+import webbrowser
+# import pyautogui
+import time
+
+#路径
+edgepath = 'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe'
+#注册
+webbrowser.register('edge',None,webbrowser.BackgroundBrowser(edgepath))
+
+webbrowser.get('edge').open('https:xxx')
+
+time.sleep(10)
+
+print('Done')
+
+time.sleep(100)
