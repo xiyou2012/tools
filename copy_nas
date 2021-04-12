@@ -1,0 +1,55 @@
+copy_from_nas_c
+
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Apr 10 10:15:45 2021
+
+
+@author: Administrator
+
+
+copy_from_nas_c
+"""
+
+
+import os,time
+
+
+def f_creat_folder(name):
+    if not os.path.exists(name):
+        os.mkdir(folder)
+        print('Successfully created dirctory',name)
+
+
+def f_copy(source,target):
+    os.system("xcopy /s {} {}".format(source,target))
+
+
+if __name__=='__main__':
+    #时间 %Y%m%d_%H%M%S
+    now = time.strftime('%Y%m%d')
+    
+    ###检查并创建必要的文件夹###
+    #c:\v_backup
+    #C:\v_disk
+    #C:\v_tools_install
+    # creat today folder for backup
+    # backupPath='c:\v_backup'
+    folder=r'c:\v_disk'
+    f_creat_folder(folder)
+    
+    folder=r'c:\v_backup'
+    f_creat_folder(folder)
+    # today=folder + '\\' + now
+    # f_creat_folder(today)
+    folder=r'c:\v_tools_install'
+    f_creat_folder(folder)   
+    
+    source = r'\\192.168.18.201\vNAS\tools\tools_install'
+    target = r'c:\v_tools_install'
+    f_copy(source, target)
+
+
+#设置winrar到path环境中，这里已经手动添加，如图
+#os.system('set Path=%Path%;C:\Program Files\WinRAR')
