@@ -1,0 +1,498 @@
+
+update:
+-2018.5.15
+-changed new URL based on EAT one page
+
+#webdriver
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+import os,time
+#xlsx
+from openpyxl import load_workbook
+from openpyxl import Workbook
+
+#login --- Function
+def sign_in():
+    driver.find_element_by_id('sso_username').send_keys('username')
+    driver.find_element_by_id('ssopassword').send_keys('Password')
+    driver.find_element_by_link_text('Sign In').click()
+    driver.implicitly_wait(5)
+#Location and ownership --- Function
+def loc_own():
+    Select(driver.find_element_by_id("P12_COUNTRY_ID")).select_by_visible_text("China")
+    driver.find_element_by_id("12_CITY").clear()
+    driver.find_element_by_id("12_CITY").send_keys("Dalian")
+
+#project --- Function
+def project(ProjectID,Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("Project")
+    driver.implicitly_wait(10)
+    driver.find_element_by_id("P12_PROJECT_ID").clear()
+    driver.find_element_by_id("P12_PROJECT_ID").send_keys(ProjectID)
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+
+#cate --- Function
+def cate(Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("End User Training")
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+
+#Support Operations --- Function
+def supportope(Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("Support Operations")
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+
+#OnBoarding --- Function
+def OnBoarding(Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("On Boarding")
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+
+    
+
+#Duration and Attendance --- Function
+def duration(Date,Hours,Minutes,Participants):
+    driver.find_element_by_id("P12_PARTICIPANTS").clear()
+    driver.find_element_by_id("P12_PARTICIPANTS").send_keys(Participants)
+    driver.find_element_by_id("12_DATE").clear()
+    driver.find_element_by_id("12_DATE").send_keys(Date)
+    Select(driver.find_element_by_id("P12_HOUR")).select_by_visible_text(Hours)
+    Select(driver.find_element_by_id("P12_MINUTE")).select_by_visible_text(Minutes)
+   
+    
+if __name__ =='__main__':
+    #Open OTT site
+    '''URL = r'https://apex.oraclecorp.com/pls/apex/f?p=22187:12:10901772524428::NO:::'
+    '''
+    URL = r'https://apex.oraclecorp.com/pls/apex/f?p=29539:12:4874095819388::NO:::'
+
+    driver = webdriver.Firefox()
+    driver.get(URL)
+    driver.implicitly_wait(10)
+    #login
+    sign_in()
+    
+    driver.implicitly_wait(5)    
+
+    wb= load_workbook(r'D:\app_installed\python_excel\OTT.xlsx')
+    Sheet1 = wb.get_sheet_by_name('Project')
+
+    for i in Sheet1['A']:        
+        
+        if i.value =='':
+            print('===jumping===',i)
+        
+        elif i.value == r'<tr>':
+            print('===running===')
+            print(i)
+
+            #Location and ownership
+            loc_own()
+            driver.implicitly_wait(10)
+            time.sleep(5)
+            
+            row = int(i.row)
+            #public 参数
+            Category=Sheet1.cell(row=row,column=2).value
+
+            Task=Sheet1.cell(row=row,column=4).value
+            Comments=Sheet1.cell(row=row,column=5).value
+            Participants=Sheet1.cell(row=row,column=6).value
+            Date=str(Sheet1.cell(row=row,column=7).value)
+            Hours=str(Sheet1.cell(row=row,column=8).value)
+            Minutes=str(Sheet1.cell(row=row,column=9).value)            
+
+            
+            
+            #判断
+            
+            if Category == 'Project':
+                
+                #project_value()
+                ProjectID=Sheet1.cell(row=row,column=3).value                
+                #Duration and Attendance
+                project(ProjectID,Task,Comments)
+                driver.implicitly_wait(5)                                           
+               
+            elif Category == 'End User Training':
+                #Duration and Attendance
+                cate(Task,Comments)
+                driver.implicitly_wait(5)
+
+            elif Category == 'Support Operations':
+                #Duration and Attendance
+                supportope(Task,Comments)
+                driver.implicitly_wait(5)
+            
+            elif Category == 'On Boarding':
+                #Duration and Attendance
+                OnBoarding(Task,Comments)
+                driver.implicitly_wait(5)
+                
+            #commen
+            duration(Date,Hours,Minutes,Participants)
+            driver.implicitly_wait(5)
+            #submet
+               
+           driver.find_element_by_id("B42329069352833818165").click()
+           print('submet successful')
+       
+
+
+
+
+
+
+
+
+update：
+- adding on borading
+
+
+#webdriver
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+import os,time
+#xlsx
+from openpyxl import load_workbook
+from openpyxl import Workbook
+#login --- Function
+def sign_in():
+    driver.find_element_by_id('sso_username').send_keys('walter.zhu@oracle.com')
+    driver.find_element_by_id('ssopassword').send_keys('1qaz@WSX')
+    driver.find_element_by_link_text('Sign In').click()
+    driver.implicitly_wait(5)
+#Location and ownership --- Function
+def loc_own():
+    Select(driver.find_element_by_id("P12_COUNTRY_ID")).select_by_visible_text("China")
+    driver.find_element_by_id("12_CITY").clear()
+    driver.find_element_by_id("12_CITY").send_keys("Dalian")
+#project --- Function
+def project(ProjectID,Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("Project")
+    driver.find_element_by_id("P12_PROJECT_ID").clear()
+    driver.find_element_by_id("P12_PROJECT_ID").send_keys(ProjectID)
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+#cate --- Function
+def cate(Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("End User Training")
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+#OnBoarding --- Function
+def OnBoarding(Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("On Boarding")
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+    
+#Duration and Attendance --- Function
+def duration(Date,Hours,Minutes,Participants):
+    driver.find_element_by_id("P12_PARTICIPANTS").clear()
+    driver.find_element_by_id("P12_PARTICIPANTS").send_keys(Participants)
+    driver.find_element_by_id("12_DATE").clear()
+    driver.find_element_by_id("12_DATE").send_keys(Date)
+    Select(driver.find_element_by_id("P12_HOUR")).select_by_visible_text(Hours)
+    Select(driver.find_element_by_id("P12_MINUTE")).select_by_visible_text(Minutes)
+   
+    
+if __name__ =='__main__':
+    #Open OTT site
+    URL = r'https://apex.oraclecorp.com/pls/apex/f?p=22187:12:10901772524428::NO:::';
+    driver = webdriver.Firefox()
+    driver.get(URL)
+    driver.implicitly_wait(10)
+    #login
+    sign_in()
+    
+    driver.implicitly_wait(5)    
+    wb= load_workbook(r'D:\app_installed\python_excel\OTT.xlsx')
+    Sheet1 = wb.get_sheet_by_name('Project')
+    for i in Sheet1['A']:        
+        
+        if i.value =='':
+            print('===jumping===',i)
+        
+        elif i.value == r'<tr>':
+            print('===running===')
+            print(i)
+            #Location and ownership
+            loc_own()
+            driver.implicitly_wait(5)
+            
+            row = int(i.row)
+            #public 参数
+            Category=Sheet1.cell(row=row,column=2).value
+            Task=Sheet1.cell(row=row,column=4).value
+            Comments=Sheet1.cell(row=row,column=5).value
+            Participants=Sheet1.cell(row=row,column=6).value
+            Date=str(Sheet1.cell(row=row,column=7).value)
+            Hours=str(Sheet1.cell(row=row,column=8).value)
+            Minutes=str(Sheet1.cell(row=row,column=9).value)            
+            
+            
+            #判断
+            
+            if Category == 'Project':
+                
+                #project_value()
+                ProjectID=Sheet1.cell(row=row,column=3).value                
+                #Duration and Attendance
+                project(ProjectID,Task,Comments)
+                driver.implicitly_wait(5)                                           
+               
+            elif Category == 'End User Training':
+                #Duration and Attendance
+                cate(Task,Comments)
+                driver.implicitly_wait(5)
+            elif Category == 'On Boarding':
+                #Duration and Attendance
+                OnBoarding(Task,Comments)
+                driver.implicitly_wait(5)
+                
+            #commen
+            duration(Date,Hours,Minutes,Participants)
+            driver.implicitly_wait(5)
+            #submet
+            driver.find_element_by_id("B5141332431044042546").click()
+            print('submet successful')    
+           
+       
+
+
+
+
+OTT status saved - 2018.02.12
+
+
+path
+D:\app_installed\python_excel
+all in one
+
+
+#webdriver
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+import os,time
+#xlsx
+from openpyxl import load_workbook
+from openpyxl import Workbook
+#login --- Function
+def sign_in():
+    driver.find_element_by_id('sso_username').send_keys('walter.zhu@oracle.com')
+    driver.find_element_by_id('ssopassword').send_keys('1qaz@WSX')
+    driver.find_element_by_link_text('Sign In').click()
+    driver.implicitly_wait(5)
+#Location and ownership --- Function
+def loc_own():
+    Select(driver.find_element_by_id("P12_COUNTRY_ID")).select_by_visible_text("China")
+    driver.find_element_by_id("12_CITY").clear()
+    driver.find_element_by_id("12_CITY").send_keys("Dalian")
+#project --- Function
+def project(ProjectID,Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("Project")
+    driver.find_element_by_id("P12_PROJECT_ID").clear()
+    driver.find_element_by_id("P12_PROJECT_ID").send_keys(ProjectID)
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+#cate --- Function
+def cate(Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("End User Training")
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+    
+#Duration and Attendance --- Function
+def duration(Date,Hours,Minutes,Participants):
+    driver.find_element_by_id("P12_PARTICIPANTS").clear()
+    driver.find_element_by_id("P12_PARTICIPANTS").send_keys(Participants)
+    driver.find_element_by_id("12_DATE").clear()
+    driver.find_element_by_id("12_DATE").send_keys(Date)
+    Select(driver.find_element_by_id("P12_HOUR")).select_by_visible_text(Hours)
+    Select(driver.find_element_by_id("P12_MINUTE")).select_by_visible_text(Minutes)
+   
+    
+if __name__ =='__main__':
+    #Open OTT site
+    URL = r'https://apex.oraclecorp.com/pls/apex/f?p=22187:12:10901772524428::NO:::';
+    driver = webdriver.Firefox()
+    driver.get(URL)
+    driver.implicitly_wait(10)
+    #login
+    sign_in()
+    
+    driver.implicitly_wait(5)    
+    wb= load_workbook(r'D:\app_installed\python_excel\OTT.xlsx')
+    Sheet1 = wb.get_sheet_by_name('Project')
+    for i in Sheet1['A']:        
+        
+        if i.value =='':
+            print('===jumping===',i)
+        
+        elif i.value == r'<tr>':
+            print('===running===')
+            print(i)
+            #Location and ownership
+            loc_own()
+            driver.implicitly_wait(5)
+            
+            row = int(i.row)
+            #public 参数
+            Category=Sheet1.cell(row=row,column=2).value
+            Task=Sheet1.cell(row=row,column=4).value
+            Comments=Sheet1.cell(row=row,column=5).value
+            Participants=Sheet1.cell(row=row,column=6).value
+            Date=str(Sheet1.cell(row=row,column=7).value)
+            Hours=str(Sheet1.cell(row=row,column=8).value)
+            Minutes=str(Sheet1.cell(row=row,column=9).value)            
+            
+            
+            #判断
+            
+            if Category == 'Project':
+                
+                #project_value()
+                ProjectID=Sheet1.cell(row=row,column=3).value                
+                #Duration and Attendance
+                project(ProjectID,Task,Comments)
+                driver.implicitly_wait(5)                                           
+               
+            elif Category == 'End User Training':
+                #Duration and Attendance
+                cate(Task,Comments)
+                driver.implicitly_wait(5)
+                
+                
+            #commen
+            duration(Date,Hours,Minutes,Participants)
+            driver.implicitly_wait(5)
+            #submet
+            driver.find_element_by_id("B5141332431044042546").click()
+            print('submet successful')    
+           
+       
+
+
+
+
+OTT for project v1.1
+-修复bug
+
+
+#webdriver
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import Select
+import os,time
+#xlsx
+from openpyxl import load_workbook
+from openpyxl import Workbook
+#login --- Function
+def sign_in():
+    driver.find_element_by_id('sso_username').send_keys('walter.zhu@oracle.com')
+    driver.find_element_by_id('ssopassword').send_keys('1qaz@WSX')
+    driver.find_element_by_link_text('Sign In').click()
+    driver.implicitly_wait(5)
+#Location and ownership --- Function
+def loc_own():
+    Select(driver.find_element_by_id("P12_COUNTRY_ID")).select_by_visible_text("China")
+    driver.find_element_by_id("12_CITY").clear()
+    driver.find_element_by_id("12_CITY").send_keys("Dalian")
+#project --- Function
+def project(ProjectID,Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("Project")
+    driver.find_element_by_id("P12_PROJECT_ID").clear()
+    driver.find_element_by_id("P12_PROJECT_ID").send_keys(ProjectID)
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+#cate --- Function
+def cate(Task,Comments):
+    Select(driver.find_element_by_id("P12_CATEGORY")).select_by_visible_text("End User Training")
+    Select(driver.find_element_by_id("P12_TYPE_ID")).select_by_visible_text(Task)
+    driver.find_element_by_id("P12_COMMENTS").clear()
+    driver.find_element_by_id("P12_COMMENTS").send_keys(Comments)
+    
+#Duration and Attendance --- Function
+def duration(Date,Hours,Minutes,Participants):
+    driver.find_element_by_id("P12_PARTICIPANTS").clear()
+    driver.find_element_by_id("P12_PARTICIPANTS").send_keys(Participants)
+    driver.find_element_by_id("12_DATE").clear()
+    driver.find_element_by_id("12_DATE").send_keys(Date)
+    Select(driver.find_element_by_id("P12_HOUR")).select_by_visible_text(Hours)
+    Select(driver.find_element_by_id("P12_MINUTE")).select_by_visible_text(Minutes)
+   
+    
+if __name__ =='__main__':
+    #Open OTT site
+    URL = r'https://apex.oraclecorp.com/pls/apex/f?p=22187:12:10901772524428::NO:::';
+    driver = webdriver.Firefox()
+    driver.get(URL)
+    driver.implicitly_wait(10)
+    #login
+    sign_in()
+    
+    driver.implicitly_wait(5)    
+    wb= load_workbook(r'D:\app_installed\python_excel\OTT.xlsx')
+    Sheet1 = wb.get_sheet_by_name('Project')
+    for i in Sheet1['A']:        
+        
+        if i.value =='':
+            print('===jumping===',i)
+        
+        elif i.value == r'<tr>':
+            print('===running===')
+            print(i)
+            #Location and ownership
+            loc_own()
+            driver.implicitly_wait(5)
+            
+            row = int(i.row)
+            #public 参数
+            Category=Sheet1.cell(row=row,column=2).value
+            Task=Sheet1.cell(row=row,column=4).value
+            Comments=Sheet1.cell(row=row,column=5).value
+            Participants=Sheet1.cell(row=row,column=6).value
+            Date=str(Sheet1.cell(row=row,column=7).value)
+            Hours=str(Sheet1.cell(row=row,column=8).value)
+            Minutes=str(Sheet1.cell(row=row,column=9).value)            
+            
+            
+            #判断
+            
+            if Category == 'Project':
+                
+                #project_value()
+                ProjectID=Sheet1.cell(row=row,column=3).value                
+                #Duration and Attendance
+                project(ProjectID,Task,Comments)
+                driver.implicitly_wait(5)                                           
+               
+            elif Category == 'End User Training':
+                #Duration and Attendance
+                cate(Task,Comments)
+                driver.implicitly_wait(5)
+                
+                
+            #commen
+            duration(Date,Hours,Minutes,Participants)
+            driver.implicitly_wait(5)
+            #submet
+            driver.find_element_by_id("B5141332431044042546").click()
+            print('submet successful')    
+           
+       
+
+
