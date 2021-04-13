@@ -1,0 +1,58 @@
+"""
+作者：Walter.zhu
+日期：2021年03月12日
+https://blog.csdn.net/weixin_43430036/article/details/84650938
+"""
+import pyautogui
+import os,time
+from threading import Thread
+
+
+
+def click_picture(pic):
+    a = 1
+    while a > 0:
+        if pyautogui.locateOnScreen(pic):
+            help_pos = pyautogui.locateOnScreen(pic)
+            goto_pos = pyautogui.center(help_pos)
+            pyautogui.moveTo(goto_pos, duration=0.5)
+            pyautogui.click()
+            a = a - 1
+        else:
+            print('Checking now please waiting')
+
+
+def click_picturewithPara(pic, x, y):
+    a = 1
+    while a > 0:
+        if pyautogui.locateOnScreen(pic):
+            help_pos = pyautogui.locateOnScreen(pic)
+            goto_pos = pyautogui.center(help_pos)
+            pyautogui.moveTo(goto_pos, duration=0.5)
+            pyautogui.moveRel(x, y, duration=0.5)
+            pyautogui.click()
+            a = a - 1
+        else:
+            print('Checking now please waiting')
+
+def putty():
+    os.system('putty -ssh 192.168.86.130')
+
+
+if __name__ =='__main__':
+    thread = Thread(target=putty)
+    thread.start()
+    time.sleep(1)
+    print('done for ssh')
+    click_picturewithPara('login.png',50,0)
+    #type root
+    pyautogui.typewrite('root')
+    pyautogui.press('enter')
+    time.sleep(1)
+    pyautogui.press('enter')
+    #password
+    pyautogui.typewrite('123456')
+    pyautogui.press('enter')
+    time.sleep(1)
+    pyautogui.press('enter')
+
