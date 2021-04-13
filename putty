@@ -51,7 +51,7 @@ if __name__ =='__main__':
     time.sleep(1)
     pyautogui.press('enter')
     #password
-    pyautogui.typewrite('123456')
+    pyautogui.typewrite('xxxxxx')
     pyautogui.press('enter')
     time.sleep(1)
     pyautogui.press('enter')
