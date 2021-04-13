@@ -1,0 +1,24 @@
+def timer(t):
+    
+    while t > 0:
+        print(t)
+        time.sleep(1)
+        t=t-1
+        
+
+
+def click(d,x,y):
+    time.sleep(2)
+    return os.system("adb -s {} shell input tap {} {}".format(d,x,y))
+    time.sleep(1)
+    
+    
+def check_pic(name):
+    #搞定-图片名称
+    system_time=time.strftime("%Y-%m-%d-%H-%M-%S",time.localtime())
+    img_name = r'd:\{}_{}.png'.format(name,system_time)
+    #截图并保存
+    img=pyautogui.screenshot(region=(472,218,1000,600))
+    timer(1)
+    img.save(img_name)
+    
