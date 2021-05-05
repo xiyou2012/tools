@@ -1,0 +1,33 @@
+Sub Move_task()
+    
+    'Move all task to 01 task
+
+    Set myOlApp = CreateObject("Outlook.Application")
+    Set myNamespace = myOlApp.GetNamespace("MAPI")
+    Set myFolder = myNamespace.GetDefaultFolder(olFolderInbox)
+    'Remove to
+    Set myRemoveFolder101 = myFolder.Folders("01 Task")
+    Set myTargetFolder = myFolder
+    
+    
+    For i = myTargetFolder.Items.Count To 1 Step by - 1
+
+        Set mymailitem = myTargetFolder.Items(i)
+
+        If InStr(1, mymailitem.Subject, "Your group has been assigned Task") > 0 Then
+
+            Debug.Print "Removing:" & mymailitem.Subject
+            mymailitem.Move myRemoveFolder101
+                       
+        Else
+        
+            Debug.Print "Checking now ..."
+            
+            
+        End If
+        DoEvents
+    Next
+    
+    'MsgBox "OK"
+End Sub
+
