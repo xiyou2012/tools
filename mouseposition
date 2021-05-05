@@ -1,3 +1,6 @@
+#pip install pyautogui -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+
+
 import pyautogui
 
 last_pos = pyautogui.position()
