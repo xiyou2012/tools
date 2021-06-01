@@ -101,7 +101,8 @@ if __name__=="__main__":
     win32gui.ShowWindow(Minimize, win32con.SW_MINIMIZE)
     #simple_example_baidu()
     #pyautogui.alert(text='下面即将打开开始菜单', title='提示')
+    #pyautogui.PAUSE = 1
+    #pyautogui.press('winleft')
     pyautogui.PAUSE = 1
-    pyautogui.press('winleft')
-    pyautogui.PAUSE = 1
-    imgAutoCick("baidu_tu/step1.png", pyautogui.click,True)
+    imgAutoCick(r'D:\Wal_code\windowlog.png')
+    pyautogui.click()
