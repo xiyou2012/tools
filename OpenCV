@@ -30,7 +30,8 @@ def imgAutoCick(tempFile, debug=False):
 
 
     # 得到图片的高和宽
-    w, h = img_template.shape[::-1]
+    #w, h = img_template.shape[::-1]
+    w, h = img_template.shape
 
 
     # 模板匹配操作
@@ -53,6 +54,7 @@ def imgAutoCick(tempFile, debug=False):
     # 先移动再操作， 进行点击动作，可以修改为其他动作
     pyautogui.moveTo(top+h/2, left+w/2)
     # whatDo(x)
+    
 
 
     if debug:
