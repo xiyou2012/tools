@@ -1,3 +1,13 @@
+
+def check_picture(pic):
+    a = 1
+    while a > 0:
+        if pyautogui.locateOnScreen(pic):
+            a = a - 1
+        else:
+            print('Checking now please waiting')
+
+
 def click_picture(pic):
     a = 1
     while a > 0:
@@ -22,4 +32,5 @@ def click_picturewithPara(pic, x, y):
             a = a - 1
         else:
             print('Checking now please waiting')
+            
             
