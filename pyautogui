@@ -1,0 +1,25 @@
+def click_picture(pic):
+    a = 1
+    while a > 0:
+        if pyautogui.locateOnScreen(pic):
+            help_pos = pyautogui.locateOnScreen(pic)
+            goto_pos = pyautogui.center(help_pos)
+            pyautogui.moveTo(goto_pos, duration=0.5)
+            pyautogui.click()
+            a = a - 1
+        else:
+            print('Checking now please waiting')
+
+def click_picturewithPara(pic, x, y):
+    a = 1
+    while a > 0:
+        if pyautogui.locateOnScreen(pic):
+            help_pos = pyautogui.locateOnScreen(pic)
+            goto_pos = pyautogui.center(help_pos)
+            pyautogui.moveTo(goto_pos, duration=0.5)
+            pyautogui.moveRel(x, y, duration=0.5)
+            pyautogui.click()
+            a = a - 1
+        else:
+            print('Checking now please waiting')
+            
