@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Aug 18 21:45:44 2021
+Created on Tue Sep 28 15:58:37 2021
+
 
 @author: Walter
 """
@@ -9,33 +10,15 @@ import tkinter
 import keyboard
 import time,pyautogui
 import os
-#walter's module
-import firstcheck01_auto_task_check as first01
-import firstcheck02_INC_check as first02
-import keepalive
-import auto_assign2me_inc
-import tag_inc
 
-def abc01():
-    first01.main_run()
-    first02.main_run()
-    
+import Open_Mi1008,BAU_Mi1008
+import Open_JY995,BAU_JY995
 
-    
-def putty_cn():
-    time.sleep(2)
-    os.system("1")
-    
-def putty_01():
-    time.sleep(2)
-    os.system("1")
-        
-    
+import Open_Mi776,BAU_Mi776
+import Open_JY778,BAU_JY778
 
-    
 
-    
-    
+#bootup module
     
 
 
@@ -50,39 +33,41 @@ if __name__ == '__main__':
     # label.pack()
     #创建按钮对象
     
-    button2=tkinter.Button(root,text='firstcheck',command=abc01)
-    button2.grid(row=0,column=0)
+    #1008系列号
+    button1=tkinter.Button(root,text='Open_Mi1008',command=Open_Mi1008.Mi1008)
+    button1.grid(row=1,column=0)
+    button1=tkinter.Button(root,text='BAU_Mi1008',command=BAU_Mi1008.Mi1008)
+    button1.grid(row=1,column=1)
     
-    
-    button1=tkinter.Button(root,text='check my_task',command=first01.main_run)
-    #将button1组件添加到窗口中显示，左停靠
-    # button1.pack(side=tkinter.LEFT)
-    button1.grid(row=0,column=1)
-
-    button2=tkinter.Button(root,text='check team_INC',command=first02.main_run)
-    button2.grid(row=0,column=2)
+    button1=tkinter.Button(root,text='Open_JY995',command=Open_JY995.JY995)
+    button1.grid(row=2,column=0)
+    # 将button1组件添加到窗口中显示，左停靠
     # button2.pack(side=tkinter.RIGHT)
+    button1=tkinter.Button(root,text='BAU_JY995',command=BAU_JY995.JY995)
+    button1.grid(row=2,column=1)
     
-    button2=tkinter.Button(root,text='keep alive',command=keepalive.main_run)
-    button2.grid(row=0,column=3)
+    #776系列号
+    button1=tkinter.Button(root,text='Open_Mi776',command=Open_Mi776.Mi776)
+    button1.grid(row=3,column=0)
+    button1=tkinter.Button(root,text='BAU_Mi776',command=BAU_Mi776.Mi776)
+    button1.grid(row=3,column=1)
     
-    button2=tkinter.Button(root,text='auto_asign2me_inc',command=auto_assign2me_inc.main_run)
-    button2.grid(row=1,column=0)
+    button1=tkinter.Button(root,text='Open_JY778',command=Open_JY778.JY778)
+    button1.grid(row=4,column=0)
+    button1=tkinter.Button(root,text='BAU_JY778',command=BAU_JY778.JY778)
+    button1.grid(row=4,column=1)
     
-    button2=tkinter.Button(root,text='DB2',command=DB2.main_run)
-    button2.grid(row=1,column=2)
+    
+    
+    
+    
+    
+
+    # button2=tkinter.Button(root,text='check team_INC',command=first02.main_run)
+    # button2.grid(row=0,column=2)
+    # 
     
    
-    
-    button2=tkinter.Button(root,text='Putty CN',command=putty_cn)
-    button2.grid(row=3,column=1)
-    
-    button2=tkinter.Button(root,text='Putty lpinstiaas01',command=putty_01)
-    button2.grid(row=3,column=2)
-    
-    button2=tkinter.Button(root,text='tag_inc Customer Unavailability',command=tag_inc.main_run)
-    button2.grid(row=4,column=0)
-    
     
     #显示窗口
     root.mainloop()
