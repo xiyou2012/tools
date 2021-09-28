@@ -1,0 +1,89 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Aug 18 21:45:44 2021
+
+@author: Walter
+"""
+
+import tkinter
+import keyboard
+import time,pyautogui
+import os
+#walter's module
+import firstcheck01_auto_task_check as first01
+import firstcheck02_INC_check as first02
+import keepalive
+import auto_assign2me_inc
+import DBGNONBILLv2
+import tag_inc
+
+def abc01():
+    first01.main_run()
+    first02.main_run()
+    
+
+    
+def putty_cn():
+    time.sleep(2)
+    os.system("1")
+    
+def putty_01():
+    time.sleep(2)
+    os.system("1")
+        
+    
+
+    
+
+    
+    
+    
+
+
+if __name__ == '__main__':
+    
+    #创建窗口对象
+    root = tkinter.Tk()
+    #创建标签对象
+    # root.geometry('200x200+280+280')
+    label=tkinter.Label(root,text='Tools')
+    #将label组件添加到窗口中显示
+    # label.pack()
+    #创建按钮对象
+    
+    button2=tkinter.Button(root,text='firstcheck',command=abc01)
+    button2.grid(row=0,column=0)
+    
+    
+    button1=tkinter.Button(root,text='check my_task',command=first01.main_run)
+    #将button1组件添加到窗口中显示，左停靠
+    # button1.pack(side=tkinter.LEFT)
+    button1.grid(row=0,column=1)
+
+    button2=tkinter.Button(root,text='check team_INC',command=first02.main_run)
+    button2.grid(row=0,column=2)
+    # button2.pack(side=tkinter.RIGHT)
+    
+    button2=tkinter.Button(root,text='keep alive',command=keepalive.main_run)
+    button2.grid(row=0,column=3)
+    
+    button2=tkinter.Button(root,text='auto_asign2me_inc',command=auto_assign2me_inc.main_run)
+    button2.grid(row=1,column=0)
+    
+    button2=tkinter.Button(root,text='DB2',command=DB2.main_run)
+    button2.grid(row=1,column=2)
+    
+   
+    
+    button2=tkinter.Button(root,text='Putty CN',command=putty_cn)
+    button2.grid(row=3,column=1)
+    
+    button2=tkinter.Button(root,text='Putty lpinstiaas01',command=putty_01)
+    button2.grid(row=3,column=2)
+    
+    button2=tkinter.Button(root,text='tag_inc Customer Unavailability',command=tag_inc.main_run)
+    button2.grid(row=4,column=0)
+    
+    
+    #显示窗口
+    root.mainloop()
