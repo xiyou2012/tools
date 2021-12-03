@@ -5,20 +5,21 @@ https://blog.csdn.net/qq_34053552/article/details/79776671
 def check_picture(pic):
     a = 1
     while a > 0:
-        if pyautogui.locateOnScreen(pic):
+        #if pyautogui.locateOnScreen(pic):
+        if pyautogui.locateCenterOnScreen(pic,confidence=0.9):
             a = a - 1
             print('good to go ahead')
         else:
             print('Waiting ... '+pic)
-
-
+    
 def click_picture(pic):
     a = 1
     while a > 0:
-        if pyautogui.locateOnScreen(pic):
-            help_pos = pyautogui.locateOnScreen(pic)
-            goto_pos = pyautogui.center(help_pos)
-            pyautogui.moveTo(goto_pos, duration=0.5)
+        if pyautogui.locateCenterOnScreen(pic,confidence=0.9):
+            goto_pos = pyautogui.locateCenterOnScreen(pic,confidence=0.9)
+            #help_pos = pyautogui.locateOnScreen(pic)
+            #goto_pos = pyautogui.center(help_pos)
+            pyautogui.moveTo(goto_pos, duration=0.1)
             pyautogui.click()
             a = a - 1
         else:
