@@ -1,0 +1,45 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Jun 14 19:56:03 2021
+
+@author: QXZ1MW3
+"""
+
+import os,time
+import pyautogui
+
+
+def timer(t):
+    while t > 0:
+        print(t)
+        time.sleep(1)
+        t=t-1
+
+def action_move():
+    pyautogui.moveTo(45,69,duration=5)
+    pyautogui.click(45,69,clicks=1,button='left')
+    pyautogui.moveTo(1886,588,duration=5)
+    
+    
+def main_run():
+    
+    n = 5000
+    while n>0 :
+        t = 500
+        action_move()
+        timer(t)
+        action_move()
+        timer(t)
+        action_move()
+        timer(t)
+        action_move()
+        timer(t)
+        n = n -1
+
+
+if __name__=='__main__':
+    timer(5)
+    main_run()
+    
+    
+    
