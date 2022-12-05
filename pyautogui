@@ -49,3 +49,33 @@ def click_picturewithPara(pic, x, y):
             print('Checking now please waiting')
             
             
+====================update 2022.12.5===============================
+def check_picture(pic):
+    a = 1
+    while a > 0:
+        #if pyautogui.locateOnScreen(pic):
+        if pyautogui.locateCenterOnScreen(pic,confidence=0.8):
+            a = a - 1
+            print('good to go ahead')
+        else:
+            print('check & Waiting ... '+pic)
+    
+def click_picture(pic):
+    a = 1
+    while a > 0:
+        if pyautogui.locateCenterOnScreen(pic,confidence=0.8):
+            goto_pos = pyautogui.locateCenterOnScreen(pic,confidence=0.9)
+            #help_pos = pyautogui.locateOnScreen(pic)
+            #goto_pos = pyautogui.center(help_pos)
+            pyautogui.moveTo(goto_pos, duration=0.1)
+            pyautogui.click()
+            a = a - 1
+        else:
+            print('Checking now please waiting')
+            
+            
+def get_ctrlc():
+    from tkinter import Tk
+    tk = Tk()
+    filePath = tk.clipboard_get()
+    return filePath
