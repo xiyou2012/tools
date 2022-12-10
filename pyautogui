@@ -2,7 +2,7 @@ https://blog.csdn.net/qq_43017750/article/details/90575240
 https://blog.csdn.net/qq_34053552/article/details/79776671
 
 
-d
+
     
 def click_picturewithPara(pic, x, y):
     a = 1
