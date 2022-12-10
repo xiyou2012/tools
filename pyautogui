@@ -2,38 +2,7 @@ https://blog.csdn.net/qq_43017750/article/details/90575240
 https://blog.csdn.net/qq_34053552/article/details/79776671
 
 
-def check_picture(pic):
-    a = 30
-    while a > 0:
-        time.sleep(1)
-        #if pyautogui.locateOnScreen(pic):
-        if pyautogui.locateCenterOnScreen(pic,confidence=0.8):
-            a = a - 1
-            print('good to go ahead')
-            return check_picture
-        else:
-            print('check & Waiting ... '+pic)
-    
-def click_picture(pic):
-    a = 1
-    while a > 0:
-        if pyautogui.locateCenterOnScreen(pic,confidence=0.8):
-            goto_pos = pyautogui.locateCenterOnScreen(pic,confidence=0.9)
-            #help_pos = pyautogui.locateOnScreen(pic)
-            #goto_pos = pyautogui.center(help_pos)
-            pyautogui.moveTo(goto_pos, duration=0.1)
-            pyautogui.click()
-            a = a - 1
-        else:
-            print('Checking now please waiting')
-            
-            
-def get_ctrlc():
-    from tkinter import Tk
-    tk = Tk()
-    filePath = tk.clipboard_get()
-    return filePath
-    
+d
     
 def click_picturewithPara(pic, x, y):
     a = 1
