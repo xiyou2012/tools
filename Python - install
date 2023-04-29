@@ -1,0 +1,15 @@
+pip install keyboard -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+
+pip install opencv-python -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+
+
+
+pip install pyautogui --proxy proxy.muc:8080
+
+
+
+pip install keyboard -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
+
+
+
+Pip install pyautogui --proxy proxy.muc:8080  -i http://mirrors.aliyun.com/pypi/simple --trusted-host mirrors.aliyun.com
