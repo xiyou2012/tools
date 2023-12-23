@@ -36,3 +36,127 @@ for line in f.readlines():
 	URL=line
 	wb.open(URL)
 	time.sleep(1)
+===============================================
+version 3 by using excel
+
+# -*- coding: utf-8 -*-
+"""
+Created on Tue Aug 17 17:35:06 2021
+
+@author: xxx
+"""
+
+
+
+import time
+import pyautogui
+import keyboard
+import webbrowser
+from openpyxl import load_workbook
+from openpyxl import Workbook
+
+import os
+from tkinter import Tk
+
+def get_ctrlc():
+    from tkinter import Tk
+    tk = Tk()
+    filePath = tk.clipboard_get()
+    return filePath
+
+def timer(t):
+    while t > 0:        
+        print(t)
+        time.sleep(1)
+        
+        t=t-1
+
+def check_picture(pic):
+    a = 1
+    while a > 0:
+        if pyautogui.locateOnScreen(pic):
+            a = a - 1
+            print('good to go ahead')
+        else:
+            print('Waiting ... '+pic)
+    
+def click_picture(pic):
+    a = 1
+    while a > 0:
+        if pyautogui.locateOnScreen(pic):
+            help_pos = pyautogui.locateOnScreen(pic)
+            goto_pos = pyautogui.center(help_pos)
+            pyautogui.moveTo(goto_pos, duration=0.1)
+            pyautogui.click()
+            a = a - 1
+        else:
+            print('Checking now please waiting')
+            
+def click_picture_v2(pic):
+    a = 1
+    while a > 0:
+        if pyautogui.locateOnScreen(pic):
+            help_pos = pyautogui.locateOnScreen(pic,confidence=0.8)
+            goto_pos = pyautogui.center(help_pos)
+            pyautogui.moveTo(goto_pos, duration=0.1)
+            pyautogui.click()
+            a = a - 1
+        else:
+            print('Checking now please waiting')
+
+def open_task(TAS_name):
+    webbrowser.open("https://xxx")
+    time.sleep(2)
+    pyautogui.click(171,194)
+    pyautogui.click(171,194)
+    pyautogui.typewrite(message=TAS_name)
+    time.sleep(1)
+    pyautogui.press('enter')
+    
+    
+def open_CHG(TAS_name):
+    
+    open_task(TAS_name)
+    timer(6)
+    
+    
+    
+    
+if __name__=='__main__':
+    
+    
+    wb = load_workbook(r'xxx.xlsx')
+    Sheet1 = wb.get_sheet_by_name('info')
+    
+    #excel 表格内部判断
+    for i in Sheet1['A']:        
+        
+        if i.value =='':
+            print('===jumping===',i)
+        
+        elif i.value == r'<tr>':
+            print('===running===')
+            print(i)
+
+            
+            row = int(i.row)
+            #public 参数
+            TAS_name=Sheet1.cell(row=row,column=2).value
+            
+            open_CHG(TAS_name)
+            
+            pyautogui.press('tab')
+            pyautogui.press('end') 
+            
+            
+            
+            # hostname=get_ctrlc()
+            # print(hostname)
+            # Sheet1.cell(row=row,column=3).value = hostname
+            
+    wb.save(r'C:\xxx.xlsx')
+            
+    
+    
+    
+      
