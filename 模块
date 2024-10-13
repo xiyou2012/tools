@@ -1,0 +1,22 @@
+#打印当前执行函数的名字
+
+下面是一个示例代码：
+python复制代码
+
+import inspect
+
+def print_current_function_name():
+frame = inspect.currentframe()
+function_name = inspect.getframeinfo(frame).function
+print("当前执行的函数名字是:", function_name)
+
+# 调用函数
+print_current_function_name()
+输出将会是：
+复制代码
+当前执行的函数名字是: print_current_function_name
+请注意，这种方法可能不适用于某些特殊情况，例如在异步代码或多线程环境中的函数。
+
+
+
+
