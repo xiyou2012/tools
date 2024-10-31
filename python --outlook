@@ -1,0 +1,60 @@
+#outlook 利用python 移动 带关键字 的邮件 到指定目录abc
+
+
+import win32com.client
+
+# 连接到 Outlook
+outlook = win32com.client.Dispatch("Outlook.Application")
+namespace = outlook.GetNamespace("MAPI")
+
+# 选择收件箱
+inbox = namespace.GetDefaultFolder(6)  # 6 表示收件箱
+
+# 获取或创建目标文件夹
+target_folder_name = "abc"
+try:
+    target_folder = inbox.Folders[target_folder_name]
+except Exception:
+    target_folder = inbox.Folders.Add(target_folder_name)
+
+# 关键字
+keyword = "特定关键字"
+
+# 遍历邮件
+messages = inbox.Items
+for message in messages:
+    try:
+        # 检查邮件主题或正文是否包含关键字
+        if keyword in message.Subject or keyword in message.Body:
+            print(f"Moving: {message.Subject}")  # 打印要移动的邮件主题
+            message.Move(target_folder)  # 移动邮件
+    except Exception as e:
+        print(f"Error processing message: {e}")
+
+
+
+
+###outlook 怎样利用python 删除 带关键字 的邮件
+
+import win32com.client
+
+# 连接到 Outlook
+outlook = win32com.client.Dispatch("Outlook.Application")
+namespace = outlook.GetNamespace("MAPI")
+
+# 选择收件箱
+inbox = namespace.GetDefaultFolder(6)  # 6 表示收件箱
+
+# 关键字
+keyword = "特定关键字"
+
+# 遍历邮件
+messages = inbox.Items
+for message in messages:
+    try:
+        # 检查邮件主题或正文是否包含关键字
+        if keyword in message.Subject or keyword in message.Body:
+            print(f"Deleting: {message.Subject}")  # 打印要删除的邮件主题
+            message.Delete()  # 删除邮件
+    except Exception as e:
+        print(f"Error processing message: {e}")
