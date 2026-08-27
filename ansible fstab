@@ -1,0 +1,24 @@
+ansible playbook
+
+xxx@k8s-master01:/etc/ansible$ ansible-playbook -i hosts playbook.yml --ask-become-pass
+
+
+#playbook.yml
+---
+- name: 修改 /etc/fstab，修改前先备份
+  hosts: suse_nodes
+  become: true
+  gather_facts: false
+  tasks:
+    - name: 备份 /etc/fstab（使用服务器系统时间）
+      ansible.builtin.shell: cp /etc/fstab /etc/fstab.bak.$(date +%Y%m%d)
+ 
+    - name: 追加 #2026 至 /etc/fstab
+      ansible.builtin.blockinfile:
+        path: /etc/fstab
+        block: |
+          #2026-test-line1
+          #2026-test-line2
+        state: present
+        create: false
+        
